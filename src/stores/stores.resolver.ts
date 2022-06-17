@@ -13,7 +13,7 @@ export class StoresResolver {
   }
 
   @Query(() => [Store])
-  findAll() {
+  findAllStores() {
     return this.storesService.findAll();
   }
 }

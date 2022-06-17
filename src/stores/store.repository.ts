@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStoreInput } from './inputs/create-store.input';
-import { PrismaService } from '../common/database/prisma/prisma.service';
+import { PrismaService } from '../@common/database/prisma/prisma.service';
 
 @Injectable()
 export class StoresRepository {

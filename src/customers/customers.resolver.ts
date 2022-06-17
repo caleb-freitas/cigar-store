@@ -15,7 +15,7 @@ export class CustomersResolver {
   }
 
   @Query(() => [Customer])
-  findAll() {
+  findAllCustomers() {
     return this.customersService.findAll();
   }
 }

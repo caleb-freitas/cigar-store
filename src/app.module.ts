@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { resolve } from 'node:path';
 import { StoresModule } from './stores/stores.module';
-import { DatabaseModule } from './common/database/database.module';
+import { DatabaseModule } from './@common/database/database.module';
 import { CustomersModule } from './customers/customers.module';
+import { CigarsModule } from './cigars/cigars.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CustomersModule } from './customers/customers.module';
       autoSchemaFile: resolve(process.cwd(), 'src/schema.graphql'),
     }),
     CustomersModule,
+    CigarsModule,
   ],
 })
 export class AppModule {}
