@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { resolve } from 'node:path';
 import { StoresModule } from './stores/stores.module';
 import { DatabaseModule } from './common/database/database.module';
+import { CustomersModule } from './customers/customers.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { DatabaseModule } from './common/database/database.module';
       driver: ApolloDriver,
       autoSchemaFile: resolve(process.cwd(), 'src/schema.graphql'),
     }),
+    CustomersModule,
   ],
 })
 export class AppModule {}
