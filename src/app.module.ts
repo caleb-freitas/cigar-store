@@ -13,7 +13,7 @@ import { CigarsModule } from './cigars/cigars.module';
     StoresModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: resolve(process.cwd(), 'src/schema.graphql'),
+      autoSchemaFile: 'schema.graphql',
     }),
     CustomersModule,
     CigarsModule,
