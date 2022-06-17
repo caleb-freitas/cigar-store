@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../@common/database/prisma/prisma.service';
 import { CreateCigarInput } from './inputs/create-cigar.input';
+import { Cigar } from './models/cigar.model';
+
+export interface CigarsRepository {
+  create(createCigarsInput: CreateCigarInput): Promise<Cigar>;
+  findAll(): Promise<Cigar[]>;
+}
 
 @Injectable()
-export class CigarsRepository {
+export class CigarsRepository implements CigarsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(createCigarsInput: CreateCigarInput) {
+  async create(createCigarsInput: CreateCigarInput): Promise<Cigar> {
     return await this.prisma.cigar.create({
       data: {
         ...createCigarsInput,
@@ -14,7 +20,7 @@ export class CigarsRepository {
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Cigar[]> {
     return await this.prisma.cigar.findMany();
   }
 }

@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { Cigar } from './models/cigar.model';
 import { CigarsRepository } from './cigars.repository';
 import { CreateCigarInput } from './inputs/create-cigar.input';
 
+export interface CigarsService {
+  create(createCigarsInput: CreateCigarInput): Promise<Cigar>;
+  findAll(): Promise<Cigar[]>;
+}
+
 @Injectable()
-export class CigarsService {
+export class CigarsService implements CigarsService {
   constructor(private cigarsRepository: CigarsRepository) {}
 
-  async create(createCigarInput: CreateCigarInput) {
+  async create(createCigarInput: CreateCigarInput): Promise<Cigar> {
     return await this.cigarsRepository.create(createCigarInput);
   }
 
-  async findAll() {
+  async findAll(): Promise<Cigar[]> {
     return await this.cigarsRepository.findAll();
   }
 }
