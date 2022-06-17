@@ -13,6 +13,8 @@ model Store {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  Cigar Cigar[]
 }
 
 model Customer {
@@ -22,4 +24,17 @@ model Customer {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Cigar {
+  id        String   @id @default(uuid())
+  storeId   String?
+  name      String
+  brand     String
+  value     Float
+  stock     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Store Store? @relation(fields: [storeId], references: [id])
 }
