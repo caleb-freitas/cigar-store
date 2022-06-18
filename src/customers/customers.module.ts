@@ -11,5 +11,6 @@ import { PrismaService } from '../@common/database/prisma/prisma.service';
     CustomersService,
     CustomersRepository,
   ],
+  exports: [CustomersService],
 })
 export class CustomersModule {}

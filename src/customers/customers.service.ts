@@ -25,6 +25,10 @@ export class CustomersService implements CustomersService {
     });
   }
 
+  async findOne(email: string): Promise<Customer> {
+    return await this.customersRepository.findOne(email);
+  }
+
   async findAll(): Promise<Customer[]> {
     return await this.customersRepository.findAll();
   }

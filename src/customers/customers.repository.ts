@@ -6,6 +6,7 @@ import { Customer } from './models/customer.model';
 export interface CustomersRepository {
   create(createCustomerInput: CreateCustomerInput): Promise<Customer>;
   findAll(): Promise<Customer[]>;
+  findOne(email: string): Promise<Customer | undefined>;
 }
 
 @Injectable()
@@ -16,6 +17,14 @@ export class CustomersRepository implements CustomersRepository {
     return await this.prisma.customer.create({
       data: {
         ...createCustomerInput,
+      },
+    });
+  }
+
+  async findOne(email: string): Promise<Customer | undefined> {
+    return await this.prisma.customer.findUnique({
+      where: {
+        email,
       },
     });
   }
