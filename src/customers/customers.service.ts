@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { AuthenticationService } from '../@common/authentication';
 import { CustomersRepository } from './customers.repository';
+import { LoginCustomerInput } from './inputs';
 import { CreateCustomerInput } from './inputs/create-customer.input';
 import { Customer } from './models/customer.model';
 
@@ -11,7 +13,11 @@ export interface CustomersService {
 
 @Injectable()
 export class CustomersService implements CustomersService {
-  constructor(private customersRepository: CustomersRepository) {}
+  constructor(
+    private readonly customersRepository: CustomersRepository,
+    @Inject(forwardRef(() => AuthenticationService))
+    private readonly authenticationService: AuthenticationService,
+  ) {}
 
   async create(createCustomerInput: CreateCustomerInput): Promise<Customer> {
     const salt = 12;
@@ -23,6 +29,11 @@ export class CustomersService implements CustomersService {
       ...createCustomerInput,
       password: hashedPassword,
     });
+  }
+
+  async login(loginCustomerInput: LoginCustomerInput) {
+    const customer = await this.findOne(loginCustomerInput.email);
+    return await this.authenticationService.login(customer);
   }
 
   async findOne(email: string): Promise<Customer> {

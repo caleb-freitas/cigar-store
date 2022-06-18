@@ -6,10 +6,12 @@ import { DatabaseModule } from './@common/database/database.module';
 import { CustomersModule } from './customers/customers.module';
 import { CigarsModule } from './cigars/cigars.module';
 import { AuthenticationModule } from './@common/authentication/authentication.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     DatabaseModule,
+    JwtModule,
     StoresModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
