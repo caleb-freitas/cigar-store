@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Cigar } from '../../cigars/models/cigar.model';
 
 @ObjectType()
 export class Store {
@@ -16,4 +17,7 @@ export class Store {
 
   @Field()
   updatedAt: Date;
+
+  @Field(() => [Cigar])
+  cigars?: Cigar[];
 }

@@ -6,6 +6,7 @@ import { Cigar } from './models/cigar.model';
 export interface CigarsRepository {
   create(createCigarsInput: CreateCigarInput): Promise<Cigar>;
   findAll(): Promise<Cigar[]>;
+  findAllFromStore(storeId: string): Promise<Cigar[]>;
 }
 
 @Injectable()
@@ -22,5 +23,16 @@ export class CigarsRepository implements CigarsRepository {
 
   async findAll(): Promise<Cigar[]> {
     return await this.prisma.cigar.findMany();
+  }
+
+  async findAllFromStore(storeId: string): Promise<Cigar[]> {
+    return await this.prisma.cigar.findMany({
+      where: {
+        storeId,
+      },
+      orderBy: {
+        value: 'desc',
+      },
+    });
   }
 }

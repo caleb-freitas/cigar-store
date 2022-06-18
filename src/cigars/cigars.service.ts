@@ -6,6 +6,7 @@ import { CreateCigarInput } from './inputs/create-cigar.input';
 export interface CigarsService {
   create(createCigarsInput: CreateCigarInput): Promise<Cigar>;
   findAll(): Promise<Cigar[]>;
+  findAllFromStore(storeId: string): Promise<Cigar[]>;
 }
 
 @Injectable()
@@ -18,5 +19,9 @@ export class CigarsService implements CigarsService {
 
   async findAll(): Promise<Cigar[]> {
     return await this.cigarsRepository.findAll();
+  }
+
+  async findAllFromStore(storeId: string): Promise<Cigar[]> {
+    return await this.cigarsRepository.findAllFromStore(storeId);
   }
 }
