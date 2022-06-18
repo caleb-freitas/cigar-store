@@ -1,25 +1,26 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { StoresModule } from './stores/stores.module';
-import { DatabaseModule } from './@common/database/database.module';
-import { CustomersModule } from './customers/customers.module';
-import { CigarsModule } from './cigars/cigars.module';
-import { AuthenticationModule } from './@common/authentication/authentication.module';
 import { JwtModule } from '@nestjs/jwt';
+
+import { AuthenticationModule } from './@common/authentication/authentication.module';
+import { DatabaseModule } from './@common/database/database.module';
+import { CigarsModule } from './cigars/cigars.module';
+import { CustomersModule } from './customers/customers.module';
+import { StoresModule } from './stores/stores.module';
 
 @Module({
   imports: [
-    DatabaseModule,
-    JwtModule,
-    StoresModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.graphql',
     }),
-    CustomersModule,
-    CigarsModule,
+    JwtModule,
     AuthenticationModule,
+    DatabaseModule,
+    CigarsModule,
+    CustomersModule,
+    StoresModule,
   ],
 })
 export class AppModule {}
