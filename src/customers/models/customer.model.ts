@@ -11,7 +11,6 @@ export class Customer {
   @Field()
   email: string;
 
-  @Field()
   password: string;
 
   @Field()
