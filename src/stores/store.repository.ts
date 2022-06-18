@@ -6,6 +6,7 @@ import { Store } from './models/store.model';
 export interface StoresRepository {
   create(createStoreInput: CreateStoreInput): Promise<Store>;
   findAll(): Promise<Store[]>;
+  findOne(id: string): Promise<Store>;
 }
 
 @Injectable()
@@ -16,6 +17,14 @@ export class StoresRepository implements StoresRepository {
     return await this.prisma.store.create({
       data: {
         ...createStoreInput,
+      },
+    });
+  }
+
+  async findOne(id: string): Promise<Store> {
+    return await this.prisma.store.findUnique({
+      where: {
+        id,
       },
     });
   }

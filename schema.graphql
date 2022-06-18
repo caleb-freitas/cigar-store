@@ -38,6 +38,7 @@ type Customer {
 
 type Query {
   findAllStores: [Store!]!
+  findStore(id: String!): Store!
   findAllCustomers: [Customer!]!
   findAllCigars: [Cigar!]!
 }

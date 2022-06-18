@@ -6,6 +6,7 @@ import { Store } from './models/store.model';
 export interface StoresService {
   create(createStoreInput: CreateStoreInput): Promise<Store>;
   findAll(): Promise<Store[]>;
+  findOne(id: string): Promise<Store>;
 }
 
 @Injectable()
@@ -18,5 +19,9 @@ export class StoresService {
 
   async findAll(): Promise<Store[]> {
     return await this.storeRepository.findAll();
+  }
+
+  async findOne(id: string): Promise<Store> {
+    return await this.storeRepository.findOne(id);
   }
 }

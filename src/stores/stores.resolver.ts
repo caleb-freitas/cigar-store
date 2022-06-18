@@ -41,4 +41,9 @@ export class StoresResolver implements StoresResolver {
   cigars(@Parent() store: Store): Promise<Cigar[]> {
     return this.cigarsService.findAllFromStore(store.id);
   }
+
+  @Query(() => Store)
+  findStore(@Args('id') id: string): Promise<Store> {
+    return this.storesService.findOne(id);
+  }
 }
