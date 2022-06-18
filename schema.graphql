@@ -45,6 +45,7 @@ type Query {
 type Mutation {
   createStore(createStoreInput: CreateStoreInput!): Store!
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  loginCustomer(loginCustomerInput: LoginCustomerInput!): String!
   createCigar(createCigarInput: CreateCigarInput!): Cigar!
 }
 
@@ -55,6 +56,11 @@ input CreateStoreInput {
 
 input CreateCustomerInput {
   name: String!
+  email: String!
+  password: String!
+}
+
+input LoginCustomerInput {
   email: String!
   password: String!
 }
