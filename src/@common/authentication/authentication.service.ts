@@ -5,7 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import {
   CustomerWithoutPassword,
   LoginResponse,
-} from './config/login-response';
+} from './contracts/login-response';
 
 @Injectable()
 export class AuthenticationService {

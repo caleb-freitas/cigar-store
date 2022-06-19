@@ -4,7 +4,7 @@ import { AuthenticationService } from '../@common/authentication/authentication.
 import {
   CustomerWithoutPassword,
   LoginResponse,
-} from '../@common/authentication/config/login-response';
+} from '../@common/authentication/contracts/login-response';
 import { CustomersRepository } from './customers.repository';
 import { CreateCustomerInput } from './inputs/create-customer.input';
 import { Customer } from './models/customer.model';
