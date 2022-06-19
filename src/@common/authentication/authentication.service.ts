@@ -2,7 +2,10 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CustomersService } from '../../customers/customers.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Customer } from '../../customers/models/customer.model';
+import {
+  CustomerWithoutPassword,
+  LoginResponse,
+} from './guards/login-response';
 
 @Injectable()
 export class AuthenticationService {
@@ -22,9 +25,12 @@ export class AuthenticationService {
     return null;
   }
 
-  async login(customer: Omit<Customer, 'password'>): Promise<string> {
+  async login(customer: CustomerWithoutPassword): Promise<LoginResponse> {
     const payload = { username: customer.email, sub: customer.id };
     const accessToken = this.jwtService.sign(payload);
-    return accessToken;
+    return {
+      access_token: accessToken,
+      customer,
+    };
   }
 }

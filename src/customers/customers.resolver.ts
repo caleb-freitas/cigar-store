@@ -1,14 +1,14 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { CustomersService } from './customers.service';
 import { Customer } from './models/customer.model';
 import { CreateCustomerInput, LoginCustomerInput } from './inputs';
 import { GqlAuthGuard } from '../@common/authentication/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { GqlCurrentUser } from '../@common/authentication/decorators/current.user';
+import { LoginResponse } from '../@common/authentication/guards/login-response';
 
 export interface CustomersResolver {
   createCustomer(createCustomerInput: CreateCustomerInput): Promise<Customer>;
-  loginCustomer(loginCustomerInput: LoginCustomerInput): Promise<string>;
   findAllCustomers(): Promise<Customer[]>;
 }
 
@@ -23,11 +23,13 @@ export class CustomersResolver implements CustomersResolver {
     return this.customersService.create(createCustomerInput);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => LoginResponse)
+  @UseGuards(GqlAuthGuard)
   loginCustomer(
     @Args('loginCustomerInput') loginCustomerInput: LoginCustomerInput,
-  ): Promise<string> {
-    return this.customersService.login(loginCustomerInput);
+    @Context() context,
+  ): Promise<LoginResponse> {
+    return this.customersService.login(context.user);
   }
 
   @Query(() => [Customer])

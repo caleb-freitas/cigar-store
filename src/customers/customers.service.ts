@@ -1,6 +1,10 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AuthenticationService } from '../@common/authentication';
+import {
+  CustomerWithoutPassword,
+  LoginResponse,
+} from '../@common/authentication/guards/login-response';
 import { CustomersRepository } from './customers.repository';
 import { LoginCustomerInput } from './inputs';
 import { CreateCustomerInput } from './inputs/create-customer.input';
@@ -31,9 +35,10 @@ export class CustomersService implements CustomersService {
     });
   }
 
-  async login(loginCustomerInput: LoginCustomerInput) {
-    const customer = await this.findOneByEmail(loginCustomerInput.email);
-    return await this.authenticationService.login(customer);
+  async login(
+    loginCustomerInput: CustomerWithoutPassword,
+  ): Promise<LoginResponse> {
+    return await this.authenticationService.login(loginCustomerInput);
   }
 
   async findOneByEmail(email: string): Promise<Customer> {
