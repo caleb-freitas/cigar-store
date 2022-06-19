@@ -1,12 +1,11 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { AuthenticationService } from '../@common/authentication';
+import { AuthenticationService } from '../@common/authentication/authentication.service';
 import {
   CustomerWithoutPassword,
   LoginResponse,
-} from '../@common/authentication/guards/login-response';
+} from '../@common/authentication/config/login-response';
 import { CustomersRepository } from './customers.repository';
-import { LoginCustomerInput } from './inputs';
 import { CreateCustomerInput } from './inputs/create-customer.input';
 import { Customer } from './models/customer.model';
 

@@ -5,7 +5,7 @@ import { CreateCustomerInput, LoginCustomerInput } from './inputs';
 import { GqlAuthGuard } from '../@common/authentication/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { GqlCurrentUser } from '../@common/authentication/decorators/current.user';
-import { LoginResponse } from '../@common/authentication/guards/login-response';
+import { LoginResponse } from '../@common/authentication/config/login-response';
 
 export interface CustomersResolver {
   createCustomer(createCustomerInput: CreateCustomerInput): Promise<Customer>;

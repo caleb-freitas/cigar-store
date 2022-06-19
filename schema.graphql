@@ -15,6 +15,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type LoginResponse {
+  access_token: String!
+  customer: Customer!
+}
+
 type Cigar {
   id: ID!
   storeId: String!
@@ -45,7 +50,7 @@ type Query {
 
 type Mutation {
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
-  loginCustomer(loginCustomerInput: LoginCustomerInput!): String!
+  loginCustomer(loginCustomerInput: LoginCustomerInput!): LoginResponse!
   createCigar(createCigarInput: CreateCigarInput!): Cigar!
   createStore(createStoreInput: CreateStoreInput!): Store!
 }
