@@ -11,7 +11,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule,
     JwtModule.register({
       secret: '1bf555be7cf8c149ae593be95ecae215',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '15m' },
     }),
     forwardRef(() => CustomersModule),
   ],
