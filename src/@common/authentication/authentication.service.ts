@@ -13,7 +13,7 @@ export class AuthenticationService {
   ) {}
 
   async validateCustomer(email: string, password: string): Promise<any> {
-    const customer = await this.customersService.findOne(email);
+    const customer = await this.customersService.findOneByEmail(email);
     const passwordMatch = await bcrypt.compare(password, customer.password);
     if (customer && passwordMatch) {
       const { password, ...customerWithoutPassword } = customer;

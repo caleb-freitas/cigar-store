@@ -32,11 +32,11 @@ export class CustomersService implements CustomersService {
   }
 
   async login(loginCustomerInput: LoginCustomerInput) {
-    const customer = await this.findOne(loginCustomerInput.email);
+    const customer = await this.findOneByEmail(loginCustomerInput.email);
     return await this.authenticationService.login(customer);
   }
 
-  async findOne(email: string): Promise<Customer> {
+  async findOneByEmail(email: string): Promise<Customer> {
     return await this.customersRepository.findOne(email);
   }
 
