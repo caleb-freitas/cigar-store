@@ -6,10 +6,6 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../@common/authentication/guards/jwt-auth.guard';
 import { GqlCurrentUser } from '../@common/authentication/decorators/current.user';
 
-export interface CigarsResolver {
-  createCigar(createCigarInput: CreateCigarInput): Promise<Cigar>;
-}
-
 @Resolver(() => Cigar)
 export class CigarsResolver implements CigarsResolver {
   constructor(private readonly cigarsService: CigarsService) {}
@@ -25,7 +21,6 @@ export class CigarsResolver implements CigarsResolver {
   @Query(() => [Cigar])
   @UseGuards(JwtAuthGuard)
   findAllCigars(@GqlCurrentUser() customer): Promise<Cigar[]> {
-    console.log(customer);
     return this.cigarsService.findAll();
   }
 }

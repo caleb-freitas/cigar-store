@@ -17,9 +17,6 @@ export class AuthenticationService {
   async validateCustomer(email: string, password: string): Promise<any> {
     const store = await this.storesService.findOneByEmail(email);
     const customer = await this.customersService.findOneByEmail(email);
-    if (!store && !customer) {
-      return null;
-    }
     if (!store) {
       const customerPasswordMatch = await bcrypt.compare(
         password,
@@ -37,6 +34,7 @@ export class AuthenticationService {
         return storeWithoutPassword;
       }
     }
+    return null;
   }
 
   async login(user: UserWithoutPassword): Promise<LoginResponse> {
