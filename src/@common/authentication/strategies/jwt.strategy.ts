@@ -16,6 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { sub, username } = payload;
     return {
       customerId: sub,
+      storeId: sub,
       email: username,
     };
   }
