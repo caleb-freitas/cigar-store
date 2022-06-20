@@ -1,22 +1,22 @@
+import { UseGuards } from '@nestjs/common';
 import {
-  Resolver,
-  Mutation,
   Args,
+  Context,
+  Mutation,
+  Parent,
   Query,
   ResolveField,
-  Parent,
+  Resolver,
 } from '@nestjs/graphql';
-import { StoresService } from './stores.service';
-import { Store } from './models/store.model';
-import { CreateStoreInput } from './inputs/create-store.input';
-import { Cigar } from '../cigars/models/cigar.model';
-import { CigarsService } from '../cigars/cigars.service';
+import { LoginResponse } from '../@common/authentication/contracts/login-response';
+import { GqlAuthGuard } from '../@common/authentication/guards/gql-auth.guard';
 
-export interface StoresResolver {
-  createStore(createStoreInput: CreateStoreInput): Promise<Store>;
-  findAllStores(): Promise<Store[]>;
-  listCigars(store: Store): Promise<Cigar[]>;
-}
+import { CigarsService } from '../cigars/cigars.service';
+import { Cigar } from '../cigars/models/cigar.model';
+import { CreateStoreInput } from './inputs/create-store.input';
+import { LoginStoreInput } from './inputs/login-store.input';
+import { Store } from './models/store.model';
+import { StoresService } from './stores.service';
 
 @Resolver(() => Store)
 export class StoresResolver implements StoresResolver {
@@ -25,6 +25,11 @@ export class StoresResolver implements StoresResolver {
     private readonly cigarsService: CigarsService,
   ) {}
 
+  @ResolveField(() => [Cigar])
+  cigars(@Parent() store: Store): Promise<Cigar[]> {
+    return this.cigarsService.findAllFromStore(store.id);
+  }
+
   @Mutation(() => Store)
   createStore(
     @Args('createStoreInput') createStoreInput: CreateStoreInput,
@@ -32,14 +37,18 @@ export class StoresResolver implements StoresResolver {
     return this.storesService.create(createStoreInput);
   }
 
+  @Mutation(() => LoginResponse)
+  @UseGuards(GqlAuthGuard)
+  loginStore(
+    @Args('loginStoreInput') loginStoreInput: LoginStoreInput,
+    @Context() context,
+  ): Promise<LoginResponse> {
+    return this.storesService.login(context.user);
+  }
+
   @Query(() => [Store])
   findAllStores(): Promise<Store[]> {
     return this.storesService.findAll();
-  }
-
-  @ResolveField(() => [Cigar])
-  cigars(@Parent() store: Store): Promise<Cigar[]> {
-    return this.cigarsService.findAllFromStore(store.id);
   }
 
   @Query(() => Store)

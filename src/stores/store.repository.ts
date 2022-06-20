@@ -29,6 +29,14 @@ export class StoresRepository implements StoresRepository {
     });
   }
 
+  async findOneByEmail(email: string): Promise<Store> {
+    return await this.prisma.store.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
   async findAll(): Promise<Store[]> {
     return await this.prisma.store.findMany();
   }

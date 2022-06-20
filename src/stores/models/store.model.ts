@@ -13,6 +13,11 @@ export class Store {
   name: string;
 
   @Field()
+  email: string;
+
+  password: string;
+
+  @Field()
   createdAt: Date;
 
   @Field()

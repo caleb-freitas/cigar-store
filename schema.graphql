@@ -15,11 +15,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type LoginResponse {
-  access_token: String!
-  customer: Customer!
-}
-
 type Cigar {
   id: ID!
   storeId: String!
@@ -35,24 +30,30 @@ type Store {
   id: ID!
   cnpj: String!
   name: String!
+  email: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   cigars: [Cigar!]!
 }
 
+type LoginResponse {
+  access_token: String!
+  user: Customer!
+}
+
 type Query {
   findAllCustomers: [Customer!]!
-  whoAmI: Customer!
-  findAllCigars: [Cigar!]!
   findAllStores: [Store!]!
   findStore(id: String!): Store!
+  findAllCigars: [Cigar!]!
 }
 
 type Mutation {
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
   loginCustomer(loginCustomerInput: LoginCustomerInput!): LoginResponse!
-  createCigar(createCigarInput: CreateCigarInput!): Cigar!
   createStore(createStoreInput: CreateStoreInput!): Store!
+  loginStore(loginStoreInput: LoginStoreInput!): LoginResponse!
+  createCigar(createCigarInput: CreateCigarInput!): Cigar!
 }
 
 input CreateCustomerInput {
@@ -66,15 +67,22 @@ input LoginCustomerInput {
   password: String!
 }
 
+input CreateStoreInput {
+  cnpj: String!
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginStoreInput {
+  email: String!
+  password: String!
+}
+
 input CreateCigarInput {
   storeId: String!
   name: String!
   brand: String!
   value: Float!
   stock: Int!
-}
-
-input CreateStoreInput {
-  cnpj: String!
-  name: String!
 }

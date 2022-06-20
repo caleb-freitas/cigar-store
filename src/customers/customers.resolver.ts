@@ -36,10 +36,4 @@ export class CustomersResolver implements CustomersResolver {
   findAllCustomers(): Promise<Customer[]> {
     return this.customersService.findAll();
   }
-
-  @Query(() => Customer)
-  @UseGuards(GqlAuthGuard)
-  whoAmI(@GqlCurrentUser() customer: Customer): Promise<Customer> {
-    return this.customersService.findOneByEmail(customer.email);
-  }
 }

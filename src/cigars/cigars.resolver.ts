@@ -15,6 +15,7 @@ export class CigarsResolver implements CigarsResolver {
   constructor(private readonly cigarsService: CigarsService) {}
 
   @Mutation(() => Cigar)
+  @UseGuards(JwtAuthGuard)
   createCigar(
     @Args('createCigarInput') createCigarInput: CreateCigarInput,
   ): Promise<Cigar> {
