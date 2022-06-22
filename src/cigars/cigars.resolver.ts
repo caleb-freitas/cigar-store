@@ -14,13 +14,18 @@ export class CigarsResolver implements CigarsResolver {
   @UseGuards(JwtAuthGuard)
   createCigar(
     @Args('createCigarInput') createCigarInput: CreateCigarInput,
+    @GqlCurrentUser() user,
   ): Promise<Cigar> {
-    return this.cigarsService.create(createCigarInput);
+    console.log(user);
+    return this.cigarsService.create({
+      ...createCigarInput,
+      storeId: user.storeId,
+    });
   }
 
   @Query(() => [Cigar])
   @UseGuards(JwtAuthGuard)
-  findAllCigars(@GqlCurrentUser() customer): Promise<Cigar[]> {
+  findAllCigars(): Promise<Cigar[]> {
     return this.cigarsService.findAll();
   }
 }

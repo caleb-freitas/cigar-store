@@ -80,7 +80,6 @@ input LoginStoreInput {
 }
 
 input CreateCigarInput {
-  storeId: String!
   name: String!
   brand: String!
   value: Float!

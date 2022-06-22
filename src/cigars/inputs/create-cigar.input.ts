@@ -2,8 +2,7 @@ import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateCigarInput {
-  @Field()
-  storeId: string;
+  storeId?: string;
 
   @Field()
   name: string;
