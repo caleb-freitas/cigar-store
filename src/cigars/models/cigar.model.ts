@@ -25,4 +25,19 @@ export class Cigar {
 
   @Field()
   updatedAt: Date;
+
+  @Field()
+  country: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  strength: string;
+
+  @Field()
+  gaugeSize: string;
+
+  @Field()
+  quantityType: string;
 }

@@ -24,6 +24,11 @@ type Cigar {
   stock: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
+  country: String!
+  description: String!
+  strength: String!
+  gaugeSize: String!
+  quantityType: String!
 }
 
 type Store {
@@ -84,4 +89,9 @@ input CreateCigarInput {
   brand: String!
   value: Float!
   stock: Int!
+  country: String!
+  description: String!
+  strength: String!
+  gaugeSize: String!
+  quantityType: String!
 }

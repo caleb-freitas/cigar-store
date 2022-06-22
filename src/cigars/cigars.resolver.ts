@@ -16,7 +16,6 @@ export class CigarsResolver implements CigarsResolver {
     @Args('createCigarInput') createCigarInput: CreateCigarInput,
     @GqlCurrentUser() user,
   ): Promise<Cigar> {
-    console.log(user);
     return this.cigarsService.create({
       ...createCigarInput,
       storeId: user.storeId,

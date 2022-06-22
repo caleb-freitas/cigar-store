@@ -15,4 +15,19 @@ export class CreateCigarInput {
 
   @Field(() => Int)
   stock: number;
+
+  @Field()
+  country: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  strength: string;
+
+  @Field()
+  gaugeSize: string;
+
+  @Field()
+  quantityType: string;
 }
